@@ -31,8 +31,72 @@ We use this categorical data encoding technique when the features are nominal(do
 • Yeojohnson method
 
 # CODING AND OUTPUT:
-       # INCLUDE YOUR CODING AND OUTPUT SCREENSHOTS HERE
+```python
+import pandas as pd
+df=pd.read_csv("/content/Encoding Data.csv")
+df
+```
+![image](https://github.com/KothaiKumar/EXNO-3-DS/assets/121215739/9975a184-54e6-4a0e-9e9b-c7eeca220ec9)
+```python
+#ORDINAL ENCODER
+from sklearn.preprocessing import LabelEncoder, OrdinalEncoder
+pm=['Hot','Warm','Cold']
+e1=OrdinalEncoder(categories=[pm])
+e1.fit_transform(df[['ord_2']])
+```
+![image](https://github.com/KothaiKumar/EXNO-3-DS/assets/121215739/6bd998e4-e1ba-4aae-ad86-24c1289e1d85)
+```python
+df['bo_2']=e1.fit_transform(df[['ord_2']])
+df
+```
+![image](https://github.com/KothaiKumar/EXNO-3-DS/assets/121215739/30bff51c-3362-4bef-ac70-2e6f3def8cae)
+```python
+#LABEL ENCODER
+le=LabelEncoder()
+dfc=df.copy()
+dfc['ord_2']=le.fit_transform(dfc['ord_2'])
+dfc
+```
+![image](https://github.com/KothaiKumar/EXNO-3-DS/assets/121215739/762d7b19-4c11-4442-a599-2ae83bde8d4e)
+```python
+from sklearn.preprocessing import OneHotEncoder
+ohe=OneHotEncoder(sparse=False)
+df2=df.copy()
+enc=pd.DataFrame(ohe.fit_transform(df2[['nom_0']]))
+
+df2=pd.concat([df,enc],axis=1)
+df2
+```
+![image](https://github.com/KothaiKumar/EXNO-3-DS/assets/121215739/081911ce-92ea-4b13-9b0e-b47ba47beb3e)
+```python
+pd.get_dummies(df2,columns=['nom_0'])
+```
+![image](https://github.com/KothaiKumar/EXNO-3-DS/assets/121215739/5618f25d-7814-4f96-85cf-3e5d02faa6db)
+```python
+from category_encoders import  BinaryEncoder
+df=pd.read_csv("/content/data.csv")
+df
+```
+![image](https://github.com/KothaiKumar/EXNO-3-DS/assets/121215739/52e0af4b-057d-4f33-b9e3-3b9c5b0d1e88)
+```python
+be=BinaryEncoder()
+nd=be.fit_transform(df['Ord_2'])
+dfb=pd.concat([df,nd],axis=1)
+dfb1=df.copy()
+dfb
+```
+![image](https://github.com/KothaiKumar/EXNO-3-DS/assets/121215739/2446078a-81ba-4fdb-a530-e18fa0cf6216)
+```python
+from category_encoders import TargetEncoder
+te=TargetEncoder()
+cc=df.copy()
+new=te.fit_transform(X=cc['City'],y=cc['Target'])
+cc=pd.concat([cc,new],axis=1)
+cc
+```
+![image](https://github.com/KothaiKumar/EXNO-3-DS/assets/121215739/92ea4ad0-0bf8-4bdd-a163-976239e9ea83)
+
 # RESULT:
-       # INCLUDE YOUR RESULT HERE
+Thus, performing Feature Encoding and Transformation process for the given data set is completed.
 
        
